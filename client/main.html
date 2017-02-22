@@ -1,0 +1,51 @@
+<head>
+  <title>TOTEM</title>
+</head>
+
+<body>
+</body>
+
+<template name="home">
+	<div id="central">
+		{{#if currentUser}}
+		<section>
+				<div class="container">
+					<label style="float:left; margin-right:10px;" for="medico">Selecione o médico</label>
+					<div style="float:left; " class="dropdown">
+					  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Hematologia
+					  <span class="caret"></span></button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#">Hematologia</a></li>
+					  </ul>
+					</div>
+				</div>
+		</section>
+
+	 	<section style="margin-top:20px;">
+	 		<div class="container">
+		 		<nav>
+				  <a href="fila"><button type="button" class="btn btn-primary btn-lg btn-block">Fila de Espera</button></a> 
+				  <br>
+				  <a href="retirada" target="_blank">  <button type="button" class="btn btn-primary btn-lg btn-block">Retirada de Senha</button></a> 
+				  <br>
+				  <a href="chamada" target="_blank"> <button type="button" class="btn btn-primary btn-lg btn-block">Chamada de Senha</button></a> 
+				  <br>
+				 </nav>
+			</div>
+	 	</section>
+	 	{{else}}
+		 	<div class="text-center container">
+				<h1>Totem Tech Day</h1>
+				<h3>Clique em "Sign In/Up" para logar.</h3>
+			</div>
+	 	{{/if}}
+ 	</div>
+</template>
+
+<template name="homeTemplate">
+	{{> header}}
+	<main class=".container">
+		{{>yield}}
+		{{>footer}}
+	</main>
+</template>

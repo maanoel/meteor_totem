@@ -1,0 +1,9 @@
+/* CSS declarations go here */
+body {
+	background-color: #EFEFEF;
+}
+
+.container{
+	background-color: #FFF;
+	width: 780px;
+}	

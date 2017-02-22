@@ -1,0 +1,22 @@
+<head>
+  <title>TOTEM</title>
+</head>
+
+<body>
+</body>
+
+<template name="retirada">
+	<section>
+		<div class="container">
+			<b><p font-size="200px;">Hematologia</p></b>
+			<button id="{{nextPass}}" style="width:100%; display: inline-block; height: 200px;" type="button" class="btn btn-success btn-lg">Senha {{nextPass}}</button>
+		</div>
+	</section>
+</template>
+
+<template name="retiradaTemplate">
+	<main>
+		{{>yield}}
+		{{>footer}}
+	</main>
+</template>

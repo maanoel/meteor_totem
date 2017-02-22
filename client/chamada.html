@@ -1,0 +1,25 @@
+<head>
+  <title>TOTEM</title>
+</head>
+
+<body>
+</body>
+
+<template name="chamada">
+	<header><center><h1 margin-button="200px;">Hematologia</h1></center>
+	</header>
+	<center style="margin-top:5%"><div>
+		<h2 style="width:100%; display: inline-block;; font-size:250px;"> {{currentPass}}</h2>
+	</div></center>	
+	<div >
+		<!-- Colocar as chamadas Anteriores aqui! -->
+	</div>
+
+</template>
+
+<template name="chamadaTemplate">
+	<main margin-button="300px !important;">
+		{{>yield}}
+	</main>
+</template>
+

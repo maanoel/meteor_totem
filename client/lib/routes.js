@@ -11,7 +11,11 @@ Router.map(function(){
 	this.route("fila", {
 		path: "/fila",
 		template: "fila",
-		layoutTemplate : "filaTemplate"
+		layoutTemplate : "filaTemplate",
+		data: function(){
+			console.log("processando rota");
+	        return Chamadas.find({medico: 1},{sort: {data_inicio: -1}}).fetch();
+  		 }
 	});
 
 	this.route("chamada", {

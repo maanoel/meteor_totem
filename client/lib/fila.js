@@ -5,19 +5,31 @@ Template.fila.helpers({
 });
 
 Template.fila.helpers({
-	chamadas: function (msg){
-		return Session.get("chamadas");
-	}
-
+	chamadasAtendimento: function() {
+        //return Session.get("chamadas");
+        return Chamadas.find({medico: 1},{sort: {data_inicio: -1}}).fetch().filter((el)=>{
+        	return (el.status == 'A');
+        }).slice(0,11);/*.forEach((obj)=>{
+        	//Deixei como alternativa para alterar o formato das datas.
+        });*/
+      }
 });
 
-//Eventos
-Template.fila.events({
-	"submit form": function (e, template){
-		e.preventDefault();
-		atualizarChamadas(e, template);
-	}
 
+Template.fila.helpers({
+	chamadasEspera: function() {
+        return Chamadas.find({medico: 1},{sort: {data_inicio: -1}}).fetch().filter((el)=>{
+        	return el.status == 'E';
+        }).slice(0, 11);
+      }
+});
+
+Template.fila.helpers({
+	chamadasFinalizada: function() { 
+        return Chamadas.find({medico: 1},{sort: {data_inicio: -1}}).fetch().filter((el)=>{
+        	return el.status == 'F';
+        }).slice(0, 11);
+      }
 });
 
 Template.fila.events({
@@ -41,19 +53,17 @@ Template.fila.events({
 		}
 		
 		let status = e.target.name == "A" ? "F" : e.target.name  == "E" ? "A" : "F";
-		console.log(status);
 
+		Chamadas.update(e.target.id, {$set: {status: status}});
+		callback();
+
+		/*Meteor call é para chamar o methods, e atualizar a collecttions
 		Meteor.call("status_pass", {status : status, id: e.target.id}, function(err){
 			if(!err) {
-				let medico = 1,
-				chamadas = Chamadas.find({medico : medico}).fetch()
-
-				definirTableView(chamadas);
 				callback();
 			}
 		});
-
-		//Session.set("currentPass", e.target.value);
+		*/
 	}
 });
 
@@ -65,48 +75,9 @@ Template.fila.events({
 		let status =  e.target.options[e.target.selectedIndex].value;
 
 		Meteor.call("status_pass", {status : status, id: e.target.id}, function(err){
-			if(!err) {
-				let chamadas = Chamadas.find({medico : 1}).fetch()
-				definirTableView(chamadas);
+			if(err) {
+				alert(err);
 			}
 		});
-
-		console.log(e.target.options[e.target.selectedIndex].value);
-		
 	}
 });
-
-//functions
-
-function atualizarChamadas(e, template) {
-
-	let filter = template.findAll("input"),
-			chamadas = Chamadas.find({medico : 1}).fetch();
-
-	definirTableView(chamadas);
-
-		
-}
-
-function definirTableView(chamadas){
-
-		for(let chamada in chamadas){
-
-			switch(chamadas[chamada].status){
-				case "E":
-					chamadas[chamada].espera = true;
-					break;
-				case "A":
-					chamadas[chamada].atendimento = true;
-					break;
-				case "F":
-					chamadas[chamada].finalizada = true;
-					break;
-				default:
-					break;
-			}
-
-		}
-
-		Session.set("chamadas", chamadas);
-}

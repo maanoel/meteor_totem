@@ -12,18 +12,6 @@
 			<h2>Fila de Espera</h2>
 	      	
 	      	{{>page_back}}
-
-			<form name="range">
-				<div class="form-group">
-					<label style="float:left;" for="dt_ini">De</label><input id="dt_ini" class="form-control" type="date" name="dini" > 
-					
-					<label for="dt_fim">até</label>
-
-					<input class="form-control" id="dt_fim" type="date" name="dfim"> 
-
-					<input style="margin-top:20px;" class="btn btn-primary" type="submit" value="buscar" id="bt_busca">
-					</div>
-			</form>
 		</div>
 	</section>
 
@@ -31,46 +19,43 @@
 
 		 <div class="container">
 		  <!-- Checar aqui se quantidade é diferente de zero -->
-		  {{#if chamadas}}
 		  	<table class="table">
 		    <thead>
 		      <tr>
 		        <th>Senha</th>
 		        <th>Inicio atendimento</th>
-		        <th>Final atendimento</th>
 		        <th>Status</th>
 		        <th></th>
 		      </tr>
 		    </thead>
 
+		    <br/>
+	
 		    <tbody>  
-		    	{{#each chamada in chamadas}}
-			  		{{#if chamada.espera }}
-				  		<tr class="success">
-					        <td>{{chamada.senha}}</td>
-					        <td>{{chamada.data_inicio}}</td>
-					        <td></td>
-					        <td>
-						        <select id="{{chamada._id}}" class="form-control">
-								    <option value="E">Esperando</option>
-								    <option value="A">Atendimento</option>
-								    <option value="F">Finalizado</option>
-								</select>
-							</td>
-							<td><button id="{{chamada._id}}" value="{{chamada.senha}}" name="{{chamada.status}}" class="btn btn-block">Chamar</button></td>
-				
-				        </tr>
-				     {{/if}}
+		    	{{#each chamada in chamadasEspera}}
+			  		<tr class="success">
+				        <td>{{chamada.senha}}</td>
+				        <td>{{chamada.data_inicio}}</td>
+				        <td>
+					        <select id="{{chamada._id}}" class="form-control">
+							    <option value="E">Esperando</option>
+							    <option value="A">Atendimento</option>
+							    <option value="F">Finalizado</option>
+							</select>
+						</td>
+						<td><button id="{{chamada._id}}" value="{{chamada.senha}}" name="{{chamada.status}}" class="btn btn-block">Chamar</button></td>
+			
+			        </tr>
 				 {{/each}}
 			</tbody>
-				   
+		
+		    <br/>
+
 		    <tbody>
-			{{#each chamada in chamadas}}
-		        {{#if chamada.atendimento}}
+			{{#each chamada in chamadasAtendimento}}
 		        	<tr class="danger">
 				        <td>{{chamada.senha}}</td>
 				        <td>{{chamada.data_inicio}}</td>
-				        <td></td>
 				        <td>
 					        <select id="{{chamada._id}}"  class="form-control">
 							    <option value="A">Atendimento</option>
@@ -80,36 +65,33 @@
 						</td>
 						<td><button id="{{chamada._id}}" value="{{chamada.senha}}"  name="{{chamada.status}}" class="btn btn-block">Chamar</button></td>
 		       		 </tr>
-		       	{{/if}}
 		     {{/each}}
 		    </tbody>
-
+	
+		    <br/>
 		    <tbody>
-		    {{#each chamada in chamadas}}
-	       		{{#if chamada.finalizada}}
-			       	<tr class="info">
-				        <td>{{chamada.senha}}</td>
-				        <td>{{chamada.data_inicio}}</td>
-				        <td>{{chamada.data_fim}}</td>
-				        <td>
-					        <select id="{{chamada._id}}"  class="form-control">
-							    <option value="F">Finalizada</option>
-							    <option value="E">Esperando</option>
-							    <option value="A">Atendimento</option>
-							</select>
-						</td>
-						<td></td>
-			        </tr>
-		        {{/if}}
+		    {{#each chamada in chamadasFinalizada}}
+		       	<tr class="info">
+			        <td>{{chamada.senha}}</td>
+			        <td>{{chamada.data_inicio}}</td>
+			        <td>
+				        <select id="{{chamada._id}}"  class="form-control">
+						    <option value="F">Finalizada</option>
+						    <option value="E">Esperando</option>
+						    <option value="A">Atendimento</option>
+						</select>
+					</td>
+					<td></td>
+		        </tr>
 			{{/each}}
    			 </tbody>
 		  </table>
-		  {{/if}}
 		</div>
 	</section>
 </template>
 
 <template name="filaTemplate">
+	{{> header}}
 	<main>
 		{{>yield}}
 		{{>footer}}

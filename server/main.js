@@ -14,6 +14,14 @@ Meteor.methods({
 	}
 });
 
+Meteor.methods({
+	"cleanMongo": function(){
+		Pass.remove({});
+		Chamadas.remove({});
+		Retirada.remove({});
+	}
+});
+
 //Modifica o status chamada
 Meteor.methods({
 	"status_pass" : function(msg){
@@ -23,27 +31,32 @@ Meteor.methods({
 
 //Cria uma nova senha incrementada
 Meteor.methods({
-	"newPool": function(msg){
+
+	"newPool": function(senha,status,data_inicio,medico){
+		//console.log('msg.senha: ' + msg.senha);
 		Chamadas.insert(
-			{senha: msg.senha, status : msg.status, data_inicio: msg.data_inicio, medico: msg.medico});
+			{senha: senha, status : status, data_inicio: data_inicio, medico: medico});
+
+		return Chamadas.find({}).fetch();
 	}
+	
 });
 
 Meteor.methods({
 
-	"newToch": function (msg){
-
-		Retirada.insert({count: 1});
+	"newToch": function (){
+		if(Retirada.find({}).fetch().length == 0 )
+			Retirada.insert({count: 0});
 	}
 });
 
 Meteor.methods({
 
 	"passIncrement": function (msg){
-
 		let count = Retirada.find({}).fetch()[0].count,
 			id = Retirada.find({}).fetch()[0]._id;
 
-		Retirada.update(id, {count: count + 1});
+		Retirada.update(id, {count: msg.newPass});
+
 	}
 });

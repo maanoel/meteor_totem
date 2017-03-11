@@ -33,11 +33,11 @@ Template.fila.helpers({
 });
 
 Template.fila.events({
-	"click button": function(e,template){
+	"click .btn-block": function(e,template){
 		
 		//Remove a senha atual para lançar a próxima
 		e.preventDefault();
-		
+
 		let callback = function(){
 
 			Meteor.call("removerAll", function(){
@@ -45,7 +45,8 @@ Template.fila.events({
 				if( Pass.find({}).fetch().length == 0 ){
 
 					Pass.insert({
-						senha: e.target.value
+						senha: e.target.value,
+						site : e.target.getAttribute("site")
 					});
 				}
 

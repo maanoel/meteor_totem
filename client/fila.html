@@ -24,6 +24,7 @@
 		      <tr>
 		        <th>Senha</th>
 		        <th>Inicio atendimento</th>
+		        <th>Local</th>
 		        <th>Status</th>
 		        <th></th>
 		      </tr>
@@ -36,6 +37,7 @@
 			  		<tr class="success">
 				        <td>{{chamada.senha}}</td>
 				        <td>{{chamada.data_inicio}}</td>
+				        <td>{{chamada.site}}</td>
 				        <td>
 					        <select id="{{chamada._id}}" class="form-control">
 							    <option value="E">Esperando</option>
@@ -43,7 +45,7 @@
 							    <option value="F">Finalizado</option>
 							</select>
 						</td>
-						<td><button id="{{chamada._id}}" value="{{chamada.senha}}" name="{{chamada.status}}" class="btn btn-block">Chamar</button></td>
+						<td><button id="{{chamada._id}}" value="{{chamada.senha}}" name="{{chamada.status}}" class="btn btn-block" site="{{chamada.site}}">Chamar</button></td>
 			
 			        </tr>
 				 {{/each}}
@@ -56,6 +58,7 @@
 		        	<tr class="danger">
 				        <td>{{chamada.senha}}</td>
 				        <td>{{chamada.data_inicio}}</td>
+				        <td>{{chamada.site}}</td>
 				        <td>
 					        <select id="{{chamada._id}}"  class="form-control">
 							    <option value="A">Atendimento</option>
@@ -63,7 +66,7 @@
 							    <option value="F">Finalizado</option>
 							</select>
 						</td>
-						<td><button id="{{chamada._id}}" value="{{chamada.senha}}"  name="{{chamada.status}}" class="btn btn-block">Chamar</button></td>
+						<td><button id="{{chamada._id}}" value="{{chamada.senha}}" name="{{chamada.status}}" class="btn btn-block" site="{{chamada.site}}">Chamar</button></td>
 		       		 </tr>
 		     {{/each}}
 		    </tbody>
@@ -74,6 +77,7 @@
 		       	<tr class="info">
 			        <td>{{chamada.senha}}</td>
 			        <td>{{chamada.data_inicio}}</td>
+			        <td>{{chamada.site}}</td>
 			        <td>
 				        <select id="{{chamada._id}}"  class="form-control">
 						    <option value="F">Finalizada</option>

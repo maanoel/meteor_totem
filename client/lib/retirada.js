@@ -1,4 +1,6 @@
 import atualizarChamadas from './fila.js';
+import * as moment from 'moment';
+//import 'moment/locale/pt-br';
 
 Template.retirada.helpers({
 
@@ -30,32 +32,26 @@ Template.retirada.events({
 	"click button": function(e,template){
 
 		let newPass = e.target.id,
-			id = Retirada.find({}).fetch()[0]._id;
+			id = Retirada.find({}).fetch()[0]._id,
+			site = document.getElementById("sel").value,
+			senha = "";
+
+		let moment = require('moment');
+		moment.locale('pt-BR');
 
 		if(isNaN(newPass)) return;
 
-		Retirada.update(id, {count: newPass});
-		Chamadas.insert(
-			{senha: newPass, status : 'E', data_inicio: new Date(), medico: 1});
-
-		/*MIGRAR O CÓDIGO ACIMA PARA ESTA ESTRUTURA DE BAIXO
-		Meteor.call("passIncrement",{newPass: newPass}, function (err){
+		Meteor.call("passIncrement",{newPass: newPass, site: site}, function (err){
 		 	if(err){ 
 		 		alert(err);
 		 	}else{
 
-		 		Meteor.apply(
-				    'newPool', 
-				    [newPass, 'E', new Date(), 1], 
-				    { returnStubValue: true }
-				  );
-
-		
 		 		 Meteor.call("newPool", {
 			 		 	senha: newPass, 
 			 		 	status: "E", 
-			 		 	data_inicio: new Date(), 
-			 		 	medico: 1
+			 		 	data_inicio: moment(new Date()).format( "MM-DD-YYYY HH:mm:ss"), 
+			 		 	medico: 1,
+			 		 	site: site
 		 		 	},function(err){
 					if(err) {
 						alert(err)
@@ -65,7 +61,6 @@ Template.retirada.events({
 	
 		 	}
 		 });
-		*/
 	} 
 
 });

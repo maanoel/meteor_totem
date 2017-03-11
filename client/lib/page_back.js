@@ -1,6 +1,7 @@
 Template.page_back.events({
 
-	"click button": function(){
+	"click button": function(e, template){
+		
 		window.history.back();
 	}
 });

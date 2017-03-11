@@ -32,10 +32,10 @@ Meteor.methods({
 //Cria uma nova senha incrementada
 Meteor.methods({
 
-	"newPool": function(senha,status,data_inicio,medico){
+	"newPool": function(msg){
 		//console.log('msg.senha: ' + msg.senha);
 		Chamadas.insert(
-			{senha: senha, status : status, data_inicio: data_inicio, medico: medico});
+			{senha: msg.senha, status : msg.status, data_inicio: msg.data_inicio, medico: msg.medico, site: msg.site});
 
 		return Chamadas.find({}).fetch();
 	}
@@ -56,7 +56,11 @@ Meteor.methods({
 		let count = Retirada.find({}).fetch()[0].count,
 			id = Retirada.find({}).fetch()[0]._id;
 
-		Retirada.update(id, {count: msg.newPass});
+		console.log(msg);
+
+		Retirada.update(id, {count: msg.newPass, site: msg.site });
+
 
 	}
 });
+

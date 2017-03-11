@@ -14,6 +14,30 @@ Meteor.methods({
 	}
 });
 
+
+Meteor.methods({
+	"updatePass": function(msg){
+
+		console.log(msg.id);
+
+		if( Pass.find({}).fetch().length == 0 ){
+			Pass.insert({
+				senha: msg.senha,
+				site : msg.site
+			});
+		}else{
+
+			let id = Pass.find({}).fetch()[0]._id;
+
+			Pass.update(id,{$set: {
+				senha: msg.senha,
+				site : msg.site
+			}});
+
+		}
+	}
+});
+
 Meteor.methods({
 	"cleanMongo": function(){
 		Pass.remove({});

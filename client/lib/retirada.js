@@ -31,6 +31,8 @@ Template.retirada.events({
 
 	"click button": function(e,template){
 
+		e.preventDefault();
+
 		let newPass = e.target.id,
 			id = Retirada.find({}).fetch()[0]._id,
 			site = document.getElementById("sel").value,
@@ -49,7 +51,7 @@ Template.retirada.events({
 		 		 Meteor.call("newPool", {
 			 		 	senha: newPass, 
 			 		 	status: "E", 
-			 		 	data_inicio: moment(new Date()).format( "MM-DD-YYYY HH:mm:ss"), 
+			 		 	data_inicio: moment(new Date()).format( "MM-DD-YYYY HH:mm:ss.SSS"), 
 			 		 	medico: 1,
 			 		 	site: site
 		 		 	},function(err){

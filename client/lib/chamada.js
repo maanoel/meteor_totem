@@ -11,6 +11,8 @@ Template.chamada.helpers({
 		let password = Pass.find({}).fetch()[0],
 			senha = password ? password.senha : null 
 
+		console.log(Pass.find({}).fetch());
+
 		if( senha ) 
 			Session.set("currentPass", senha);
 		else	

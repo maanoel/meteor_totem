@@ -40,16 +40,9 @@ Template.fila.events({
 
 		let callback = function(){
 
-			Meteor.call("removerAll", function(){
-
-				if( Pass.find({}).fetch().length == 0 ){
-
-					Pass.insert({
-						senha: e.target.value,
-						site : e.target.getAttribute("site")
-					});
-				}
-
+			Meteor.call("updatePass", {
+				senha: e.target.value,
+				site : e.target.getAttribute("site")
 			});
 		}
 		

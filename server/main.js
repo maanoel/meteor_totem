@@ -58,8 +58,9 @@ Meteor.methods({
 
 	"newPool": function(msg){
 		//console.log('msg.senha: ' + msg.senha);
+		let pass = Retirada.find({}).fetch()[0].count
 		Chamadas.insert(
-			{senha: msg.senha, status : msg.status, data_inicio: msg.data_inicio, medico: msg.medico, site: msg.site});
+			{senha: pass, status : msg.status, data_inicio: msg.data_inicio, medico: msg.medico, site: msg.site});
 
 		return Chamadas.find({}).fetch();
 	}
@@ -82,7 +83,7 @@ Meteor.methods({
 
 		console.log(msg);
 
-		Retirada.update(id, {count: msg.newPass, site: msg.site });
+		Retirada.update(id, {count: count++, site: msg.site });
 
 
 	}

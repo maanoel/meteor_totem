@@ -40,29 +40,16 @@ Template.retirada.events({
 
 		let moment = require('moment');
 		moment.locale('pt-BR');
-
-		if(isNaN(newPass)) return;
-
-		Meteor.call("passIncrement",{newPass: newPass, site: site}, function (err){
-		 	if(err){ 
-		 		alert(err);
-		 	}else{
-
-		 		 Meteor.call("newPool", {
-			 		 	senha: newPass, 
-			 		 	status: "E", 
-			 		 	data_inicio: moment(new Date()).format( "MM-DD-YYYY HH:mm:ss.SSS"), 
-			 		 	medico: 1,
-			 		 	site: site
-		 		 	},function(err){
-					if(err) {
-						alert(err)
-					}
-				});
-
-	
-		 	}
-		 });
-	} 
-
+		
+ 		 Meteor.call("newPool", {
+	 		 	status: "E", 
+	 		 	data_inicio: moment(new Date()).format( "MM-DD-YYYY HH:mm:ss.SSS"), 
+	 		 	medico: 1,
+	 		 	site: site
+ 		 	},function(err){
+			if(err) {
+				alert(err)
+			}
+		}); 
+	}
 });

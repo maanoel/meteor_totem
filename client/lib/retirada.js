@@ -1,5 +1,5 @@
 import atualizarChamadas from './fila.js';
-import * as moment from 'moment';
+//import * as moment from 'moment';
 //import 'moment/locale/pt-br';
 
 Template.retirada.helpers({
